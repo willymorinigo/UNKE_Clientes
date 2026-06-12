@@ -151,6 +151,11 @@ export default function ProjectsTracker({
     e.preventDefault();
     if (!projectName.trim()) return;
 
+    if (!customNotes.trim()) {
+      alert("Por favor, ingresa las indicaciones de diseño internas antes de registrar el presupuesto (campo obligatorio).");
+      return;
+    }
+
     let finalClientId = selectedClientId;
     let finalClientName = "";
     let finalClientEmail = "";
@@ -707,13 +712,15 @@ export default function ProjectsTracker({
                 )}
 
                 <div>
-                  <label className="block text-3xs font-extrabold uppercase tracking-wide text-neutral-400 mb-0.5">Indicaciones de diseño internas</label>
+                  <label className="block text-3xs font-extrabold uppercase tracking-wide text-neutral-400 mb-0.5">
+                    Indicaciones de diseño internas <span className="text-red-500 font-sans normal-case animate-pulse">* (Obligatorio)</span>
+                  </label>
                   <textarea
                     rows={2}
                     placeholder="Escribir requerimiento tipográfico, colores o especificaciones..."
                     value={customNotes}
                     onChange={(e) => setCustomNotes(e.target.value)}
-                    className="w-full bg-neutral-50 px-2.5 py-1.5 border rounded focus:outline-none"
+                    className="w-full bg-neutral-50 px-2.5 py-1.5 border rounded focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400"
                   ></textarea>
                 </div>
 
