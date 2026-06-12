@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-unke: #2D8276;
+  --color-unke-hover: #24695F;
+  --color-unke-light: #F0F7F6;
+  --color-unke-border: #CBDAD7;
+  --color-unke-dark: #1E554D;
+}
+
+/* Base High Density styling and compact scrollbars */
+html {
+  font-size: 13.5px; /* Slightly more compact base size */
+}
+
+/* Custom scrollbars for high density list panels */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Micro-animations and fades */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* High Density Spacing Guidelines */
+.dense-p {
+  padding: 0.65rem 0.9rem !important;
+}
+.dense-py {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+.dense-px {
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+}
+.dense-gap {
+  gap: 0.75rem !important;
+}
+.dense-table-cell {
+  padding: 0.45rem 0.75rem !important;
+  font-size: 0.75rem !important;
+}

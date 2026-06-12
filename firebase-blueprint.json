@@ -1,0 +1,105 @@
+{
+  "entities": {
+    "Project": {
+      "title": "Project",
+      "description": "Graphic design project or job under tracking",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "clientId": { "type": "string" },
+        "clientName": { "type": "string" },
+        "status": { "type": "string", "enum": ["draft", "approved", "in_progress", "revision", "completed"] },
+        "deliveryDate": { "type": "string" },
+        "pieceType": { "type": "string" },
+        "complexity": { "type": "string" },
+        "price": { "type": "integer" },
+        "driveFileId": { "type": "string" },
+        "driveFileUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "createdBy": { "type": "string" },
+        "createdByName": { "type": "string" }
+      },
+      "required": ["id", "name", "clientId", "clientName", "status", "deliveryDate", "pieceType", "complexity", "price"]
+    },
+    "Client": {
+      "title": "Client",
+      "description": "Recurring design client profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "company": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "createdBy": { "type": "string" }
+      },
+      "required": ["id", "name", "email"]
+    },
+    "Pricing": {
+      "title": "Pricing",
+      "description": "Price table entry for calculating budgets",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "pieceName": { "type": "string" },
+        "basePrice": { "type": "integer" },
+        "factorLow": { "type": "number" },
+        "factorMedium": { "type": "number" },
+        "factorHigh": { "type": "number" }
+      },
+      "required": ["id", "pieceName", "basePrice", "factorLow", "factorMedium", "factorHigh"]
+    },
+    "RoleAssign": {
+      "title": "RoleAssign",
+      "description": "Role authentication profile mapping emails to roles",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "viewer"] },
+        "name": { "type": "string" },
+        "assignedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "role"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Audit trail log of actions taken by users",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "userName": { "type": "string" },
+        "action": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["id", "timestamp", "userId", "userEmail", "action", "description"]
+    }
+  },
+  "firestore": {
+    "/projects/{projectId}": {
+      "schema": "Project",
+      "description": "Design studio projects"
+    },
+    "/clients/{clientId}": {
+      "schema": "Client",
+      "description": "Design studio clients"
+    },
+    "/pricings/{pricingId}": {
+      "schema": "Pricing",
+      "description": "Interactive pricing lookup configurations"
+    },
+    "/roles/{roleId}": {
+      "schema": "RoleAssign",
+      "description": "Pre-authorized user email role configuration parameters"
+    },
+    "/logs/{logId}": {
+      "schema": "AuditLog",
+      "description": "Immutable operational audit trails"
+    }
+  }
+}

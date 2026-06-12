@@ -1,0 +1,65 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Catch-all default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Common helpers
+    function isSignedIn() {
+      return request.auth != null && (
+        request.auth.token.email == 'willymorinigo@gmail.com' ||
+        request.auth.token.email == 'ignaciobieski@gmail.com' ||
+        request.auth.token.email == 'mesfede@gmail.com'
+      );
+    }
+
+    function isEmailVerified() {
+      return request.auth.token.email_verified == true;
+    }
+
+    function getUserEmail() {
+      return request.auth.token.email;
+    }
+
+    // Bootstrap administrator or any authenticated user for collaborative editing
+    function isAdmin() {
+      return isSignedIn();
+    }
+
+    // --- Collections security rules ---
+
+    // Pricings (Pricing Parameters)
+    match /pricings/{pricingId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Clients Profiles
+    match /clients/{clientId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Projects Delivery & Status
+    match /projects/{projectId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Custom Roles management
+    match /roles/{roleId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Secure Audit Log (Creation allowed by authenticated users, but no modifications or deletes)
+    match /logs/{logId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if false;
+    }
+  }
+}

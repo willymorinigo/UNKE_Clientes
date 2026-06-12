@@ -1,0 +1,8 @@
+{
+  "name": "UNKE Estudio",
+  "description": "Sistema de gestión integral de proyectos, presupuestos, clientes y reportes financieros para el estudio de diseño UNKE.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
